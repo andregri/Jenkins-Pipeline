@@ -14,12 +14,12 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'cat tmp'
+                sh 'echo hello > tmp'
             }
         }
         stage('deploy - staging') {
             steps {
-                sh 'echo hello > tmp'    
+                sh 'cat tmp'
             }
         }
         stage('deploy - production') {
