@@ -7,6 +7,8 @@ pipeline {
         stage('build') {
             steps {
                 sh "echo Start building ${STAGE} env"
+                sh 'mkdir -p build'
+                sh 'touch build/app.xcd'
                 sh 'mvn --version'
             }
         }
@@ -22,6 +24,9 @@ pipeline {
         }
     }
     post {
+        always {
+            archiveArtifacts artifacts: 'build/*.xcd', fingerprint: true  
+        }
         success {
             sh 'rm tmp'
         }
