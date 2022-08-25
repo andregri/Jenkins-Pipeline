@@ -29,6 +29,9 @@ pipeline {
         }
         success {
             sh 'rm tmp'
+            mail to: 'febavi1961@vpsrec.com',
+                 subject: "Successful pipeline ${currentBuild.fullDisplayName}",
+                 body: "Pipeline #${env.BUILD_NUMBER} was successful"
         }
     }
 }
