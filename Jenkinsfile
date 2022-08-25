@@ -7,5 +7,20 @@ pipeline {
                 sh 'mvn --version'
             }
         }
+        stage('deploy') {
+            steps {
+                sh 'echo hello > tmp'    
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'cat tmp'
+            }
+        }
+    }
+    post {
+        success {
+            sh 'rm tmp'
+        }
     }
 }
