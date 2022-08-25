@@ -1,9 +1,12 @@
 pipeline {
     agent { docker { image 'maven:3.8.4-openjdk-11-slim' } }
+    environment {
+        STAGE = 'debug'
+    }
     stages {
         stage('build') {
             steps {
-                sh 'echo Start building...'
+                sh "echo Start building ${STAGE} env"
                 sh 'mvn --version'
             }
         }
