@@ -12,14 +12,20 @@ pipeline {
                 sh 'mvn --version'
             }
         }
-        stage('deploy') {
+        stage('test') {
+            steps {
+                sh 'cat tmp'
+            }
+        }
+        stage('deploy - staging') {
             steps {
                 sh 'echo hello > tmp'    
             }
         }
-        stage('test') {
+        stage('deploy - production') {
             steps {
-                sh 'cat tmp'
+                input 'Deploy to production?'
+                sh 'echo production > tmp'   
             }
         }
     }
@@ -29,9 +35,6 @@ pipeline {
         }
         success {
             sh 'rm tmp'
-            mail to: 'febavi1961@vpsrec.com',
-                 subject: "Successful pipeline ${currentBuild.fullDisplayName}",
-                 body: "Pipeline #${env.BUILD_NUMBER} was successful"
         }
     }
 }
